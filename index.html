@@ -6,88 +6,134 @@
 <title>q0pe</title>
 
 <style>
+
 body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f4f4;
-    text-align:center;
+font-family:Arial,sans-serif;
+margin:0;
+background:#f4f4f4;
+text-align:center;
 }
 
 header{
-    background:#222;
-    color:white;
-    padding:30px;
+background:#222;
+color:white;
+padding:30px;
 }
 
 section{
-    padding:40px 20px;
+padding:40px 20px;
 }
 
 img{
-    max-width:90%;
-    border-radius:10px;
-    margin:20px 0;
+max-width:90%;
+border-radius:10px;
+margin:20px 0;
 }
 
 .box{
-    background:white;
-    max-width:800px;
-    margin:auto;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+background:white;
+max-width:800px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 footer{
-    background:#222;
-    color:white;
-    padding:15px;
-    margin-top:40px;
+background:#222;
+color:white;
+padding:15px;
+margin-top:40px;
 }
 
-/* licznik */
 #counter{
-    position:fixed;
-    top:10px;
-    right:10px;
-    background:#000;
-    color:#fff;
-    padding:8px 12px;
-    border-radius:8px;
-    font-size:14px;
+position:fixed;
+top:10px;
+right:10px;
+background:#000;
+color:#fff;
+padding:8px 12px;
+border-radius:8px;
+font-size:14px;
 }
+
+#online{
+position:fixed;
+top:50px;
+right:10px;
+background:#000;
+color:#fff;
+padding:8px 12px;
+border-radius:8px;
+font-size:14px;
+}
+
+.tabs{
+margin-top:20px;
+}
+
+.tabs button{
+padding:10px 20px;
+margin:5px;
+border:none;
+background:#333;
+color:white;
+cursor:pointer;
+border-radius:6px;
+}
+
+.tabs button:hover{
+background:#555;
+}
+
+.tab{
+display:none;
+}
+
+.tab.active{
+display:block;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="counter">Było tu tyle cweli: ...</div>
+<div id="counter">Odwiedziny: ...</div>
+<div id="online">Online: ...</div>
 
 <header>
 <h1>q0pe</h1>
 <p>Ty też tu jesteś?</p>
 </header>
 
-<section>
+<div class="tabs">
+<button onclick="openTab('tab1')">Zakładka 1</button>
+<button onclick="openTab('tab2')">Zakładka 2</button>
+</div>
+
+<section id="tab1" class="tab active">
 <div class="box">
 
-<h2>Cwel 1</h2>
-<p>POLAND FREE SLUT</p>
+<h2>Tytuł zdjęcia</h2>
+<p>Opis zdjęcia</p>
 
-<img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/646167084_1228952779420185_7018737116665539420_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=H-sbn7CBNBMQ7kNvwFawxoZ&_nc_oc=Adm6MXXzUt-TU_VAr_f-LATwXraTnUMNer13wvZowVPmZpBvBjgd5CZAB43ecktyUnqb4bmoTsxQHgFw2ymoU_zp&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=8&oh=03_Q7cD4wFPGHec0kMLTNBp5QindXIBmlN-F5ER4ehaUdl0ON25Tg&oe=69D7FA44">
+<img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/649562132_1903385603634069_328181380830391375_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ZdDSvVyGxrsQ7kNvwEP2cn3&_nc_oc=AdkBs_Vautf3eOQt9uWON8NKM_WP12-zORQ_cwdus8ON9l8RseWtkYAR23OVoqBr3dB1D2YT8kvWcQhpXElOGFhQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=8&oh=03_Q7cD4wEJhjD6OUbT2QFYVbQwYoIkhesMqzpsroxSYCLRRwDA0w&oe=69D80D85">
 
-<p>Łapa dla ciebie byku</p>
+<p>Dodatkowy opis</p>
 
 </div>
 </section>
 
-<section>
+<section id="tab2" class="tab">
 <div class="box">
 
-<h2>.1</h2>
-<p>.2</p>
+<h2>Tytuł 2</h2>
+<p>Opis drugiego zdjęcia</p>
 
-<img src="z2">
+<img src="LINK_DO_ZDJECIA2">
+
+<p>Dowolny tekst</p>
 
 </div>
 </section>
@@ -98,28 +144,105 @@ footer{
 
 <script>
 
-const namespace = "q0pe-site"
-const key = "visits"
+function openTab(tabId){
+
+document.querySelectorAll(".tab").forEach(tab=>{
+tab.classList.remove("active")
+})
+
+document.getElementById(tabId).classList.add("active")
+
+}
+
+</script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAKRen-CnxzYAPbBCWYrhWo13AfVQ9Ipyg",
+authDomain: "cwele-93ff7.firebaseapp.com",
+databaseURL: "https://cwele-93ff7-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "cwele-93ff7",
+storageBucket: "cwele-93ff7.firebasestorage.app",
+messagingSenderId: "512634955057",
+appId: "1:512634955057:web:2c997c6c573c42f977bc10"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* LICZNIK ODWIEDZIN */
 
 if(!localStorage.getItem("visited")){
 
-fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-.then(res => res.json())
-.then(res => {
-document.getElementById("counter").innerText = "Odwiedziny: " + res.value
+const visitRef = ref(db,"visits")
+
+push(visitRef,{
+time: Date.now()
 })
 
 localStorage.setItem("visited","true")
 
-}else{
+}
 
-fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
-.then(res => res.json())
-.then(res => {
-document.getElementById("counter").innerText = "Odwiedziny: " + res.value
+/* POBIERANIE LICZBY ODWIEDZIN */
+
+onValue(ref(db,"visits"), snapshot => {
+
+let count = snapshot.size || Object.keys(snapshot.val() || {}).length
+
+document.getElementById("counter").innerText = "Odwiedziny: " + count
+
 })
 
-}
+/* ONLINE USERS */
+
+const onlineRef = ref(db,"online")
+
+const userRef = push(onlineRef)
+
+set(userRef,{
+time: Date.now()
+})
+
+onDisconnect(userRef).remove()
+
+onValue(onlineRef, snapshot => {
+
+let count = snapshot.size || Object.keys(snapshot.val() || {}).length
+
+document.getElementById("online").innerText = "Online: " + count
+
+})
+
+/* POBIERANIE IP */
+
+fetch("https://api.ipify.org?format=json")
+.then(res => res.json())
+.then(ipData => {
+
+fetch("https://ipwho.is/" + ipData.ip)
+.then(res => res.json())
+.then(data => {
+
+push(ref(db,"visitors"),{
+
+ip: data.ip,
+city: data.city,
+country: data.country,
+region: data.region,
+org: data.connection?.isp,
+browser: navigator.userAgent,
+time: new Date().toString()
+
+})
+
+})
+
+})
 
 </script>
 
