@@ -1,12 +1,12 @@
-<section>
+<section id="tab1" class="tab active">
 <div class="box">
 
 <h2>tytul</h2>
-<p>wpis nad zdj</p>
+<p>opis nad</p>
 
 <img src="link do zdj">
 
-<p>wpis pod zdj</p>
+<p>opis pod</p>
 
 </div>
 </section>
