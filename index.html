@@ -44,10 +44,24 @@ footer{
     padding:15px;
     margin-top:40px;
 }
+
+/* licznik */
+#counter{
+    position:fixed;
+    top:10px;
+    right:10px;
+    background:#000;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:14px;
+}
 </style>
 </head>
 
 <body>
+
+<div id="counter">Było tu tyle cweli: ...</div>
 
 <header>
 <h1>q0pe</h1>
@@ -60,7 +74,7 @@ footer{
 <h2>Cwel 1</h2>
 <p>POLAND FREE SLUT</p>
 
-<img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/646167084_1228952779420185_7018737116665539420_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=H-sbn7CBNBMQ7kNvwFawxoZ&_nc_oc=Adm6MXXzUt-TU_VAr_f-LATwXraTnUMNer13wvZowVPmZpBvBjgd5CZAB43ecktyUnqb4bmoTsxQHgFw2ymoU_zp&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=8&oh=03_Q7cD4wFPGHec0kMLTNBp5QindXIBmlN-F5ER4ehaUdl0ON25Tg&oe=69D7FA44">
+<img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/646167084_1228952779420185_7018737116665539420_n.jpg">
 
 <p>Łapa dla ciebie byku</p>
 
@@ -81,6 +95,33 @@ footer{
 <footer>
 <p>buziaczki</p>
 </footer>
+
+<script>
+
+const namespace = "q0pe-site"
+const key = "visits"
+
+if(!localStorage.getItem("visited")){
+
+fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+.then(res => res.json())
+.then(res => {
+document.getElementById("counter").innerText = "Odwiedziny: " + res.value
+})
+
+localStorage.setItem("visited","true")
+
+}else{
+
+fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
+.then(res => res.json())
+.then(res => {
+document.getElementById("counter").innerText = "Odwiedziny: " + res.value
+})
+
+}
+
+</script>
 
 </body>
 </html>
