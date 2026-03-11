@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>q0pe</title>
 
+<meta property="og:title" content="GWIAZDY PEDALSTWA">
+<meta property="og:description" content="Big shoutout to: q0pe, Kendii, Lecher, Arkcham, Kade, Gabriel Wilimowski">
+<meta property="og:image" content="https://scontent.xx.fbcdn.net/v/t1.15752-9/649514099_799968362584738_5715885268031491798_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=pAVjr3BDLIwQ7kNvwHtOLn8&_nc_oc=Adna7fRIeVYrca1YwdzvoqVOD4PXzbqQjXW7AiKUNGh1bT6C1-NNXgpRSvNv4Ch1BpNxKYqYjE9JEj9TzZpKUavM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=8&oh=03_Q7cD4wHdTvqRAzI5T5vrm0mXz3ihtr9fvelncWVQyyq5qGESpw&oe=69D9017C">
+<meta property="og:url" content="https://cweldoxer.github.io/cwelcweltestkurwa/">
+<meta property="og:type" content="website">
+
 <style>
 
 body{
@@ -94,6 +100,11 @@ display:none;
 display:block;
 }
 
+#logo{
+width:220px;
+margin-bottom:10px;
+}
+
 </style>
 </head>
 
@@ -174,51 +185,27 @@ appId: "1:512634955057:web:2c997c6c573c42f977bc10"
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* LICZNIK ODWIEDZIN */
-
 if(!localStorage.getItem("visited")){
-
 const visitRef = ref(db,"visits")
-
-push(visitRef,{
-time: Date.now()
-})
-
+push(visitRef,{time: Date.now()})
 localStorage.setItem("visited","true")
-
 }
 
-/* POBIERANIE LICZBY ODWIEDZIN */
-
 onValue(ref(db,"visits"), snapshot => {
-
 let count = snapshot.size || Object.keys(snapshot.val() || {}).length
-
 document.getElementById("counter").innerText = "Odwiedziny: " + count
-
 })
-
-/* ONLINE USERS */
 
 const onlineRef = ref(db,"online")
-
 const userRef = push(onlineRef)
 
-set(userRef,{
-time: Date.now()
-})
-
+set(userRef,{time: Date.now()})
 onDisconnect(userRef).remove()
 
 onValue(onlineRef, snapshot => {
-
 let count = snapshot.size || Object.keys(snapshot.val() || {}).length
-
 document.getElementById("online").innerText = "Online: " + count
-
 })
-
-/* POBIERANIE IP */
 
 fetch("https://api.ipify.org?format=json")
 .then(res => res.json())
@@ -229,7 +216,6 @@ fetch("https://ipwho.is/" + ipData.ip)
 .then(data => {
 
 push(ref(db,"visitors"),{
-
 ip: data.ip,
 city: data.city,
 country: data.country,
@@ -237,7 +223,6 @@ region: data.region,
 org: data.connection?.isp,
 browser: navigator.userAgent,
 time: new Date().toString()
-
 })
 
 })
